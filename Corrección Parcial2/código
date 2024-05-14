@@ -1,0 +1,159 @@
+using System;
+
+namespace parcial_2
+{
+    class Tony_Balan
+    {
+        //Declarar los arreglos para guardar datos
+        //Deben ser datos de la clase para poder ser accedidos desde cualquier método
+        private string[] alumnos = new string[10];
+        private int[] notas = new int[10];
+
+
+        public static void Main()
+        {
+            Tony_Balan funcion = new Tony_Balan();
+            funcion.nombres();
+            funcion.numeros();
+            funcion.menu();
+        }
+
+        public void nombres()
+        {
+            Console.WriteLine("Hola usuario, por favor ingrese diez nombres: ");
+
+            for(int i = 0; i < 10; i++)
+            {
+                alumnos[i] = Console.ReadLine();   
+            }
+        }
+
+        public void numeros()
+        {
+            int nota = 0;
+            Console.WriteLine("________________________________________________________________");
+            Console.WriteLine("Por favor ingrese las diez notas: ");
+            for(int i = 0; i < 10; i++)
+            {
+                for(Boolean p = true; p == true;)
+                {
+                    while(!int.TryParse(Console.ReadLine(), out nota))
+                    {
+                    Console.WriteLine("Ingrese un numero correcto.");
+                    }
+
+                    if(nota < 0 || nota > 100)
+                    {
+                        Console.WriteLine("Numero incorreto.");
+                    }
+                    else
+                    {
+                        notas[i] = nota;
+                        p = false;
+                    }
+                }
+            }
+        }
+        
+        public void menu()
+        {
+            int opcion_menu = 0;
+            double promedio = 0;
+            int respuesta = 0;
+
+            Console.WriteLine("_______________________________________________________________");
+            Console.WriteLine("Ingrese una opcion: \n1. Nombres y notas \n2. Alumnos aprobados \n3. Alumnos reprobados \n4. Promedio del curso \n5. Salir");
+            Console.WriteLine("_______________________________________________________________");
+            while(!int.TryParse(Console.ReadLine(), out opcion_menu))
+            {
+            Console.WriteLine("Ingrese un numero correcto.");
+            Console.WriteLine("___________________________________________________");
+            }
+            switch (opcion_menu)
+            {
+                case 1:
+                    {
+                        Console.WriteLine("_______________________________________________________________");
+                        Console.WriteLine("Los nombres y notas de los estudiantes son: ");
+                        for(int i = 0; i < 10; i++)
+                        {
+                            Console.WriteLine($"{alumnos[i]}: {notas[i]}");
+                        }
+                        break;
+                    }
+                case 2: 
+                    {
+                        Console.WriteLine("_______________________________________________________________");
+                        Console.WriteLine("Los estudiantes que aprobaron son:");
+                        for(int i = 0; i < 10; i++)
+                        {
+                            if(notas[i] > 60)
+                            {
+                                Console.WriteLine($"{alumnos[i]}: {notas[i]}");
+                            }
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        Console.WriteLine("_______________________________________________________________");
+                        Console.WriteLine("Los estudiantes que no aprobaron son:");
+                        for(int i = 0; i < 10; i++)
+                        {
+                            if(notas[i] < 60)
+                            {
+                                Console.WriteLine($"{alumnos[i]}: {notas[i]}");
+                            }
+                        }
+                        break;
+                    }
+                case 4:
+                    {
+                        Console.WriteLine("_______________________________________________________________");
+                        Console.WriteLine("El promedio de notas del grupo es: ");
+                        for(int i = 0; i < notas.Length; i++)
+                        {
+                            promedio = promedio + notas[i];
+                        }
+                        Console.WriteLine(promedio / notas.Length);
+                        break;
+                    }
+                case 5:
+                    {
+                        break; 
+                    }
+            }
+
+            //Cerrar programa
+            Console.WriteLine("_______________________________________________________________");
+            Console.WriteLine("¿Desea cerrar el programa? 1. Sí 2. No");
+            for(Boolean i = true; i == true;)
+            {
+                while(!int.TryParse(Console.ReadLine(), out respuesta))
+                    {
+                    Console.WriteLine("Ingrese un numero.");
+                    }
+
+                switch(respuesta)
+                {
+                    case 1:
+                    {
+                        i = false;
+                        break;
+                    }
+                    case 2:
+                    {
+                        menu();
+                        break;
+                    }
+                    default:
+                    {
+                        Console.WriteLine("_______________________________________________________________");
+                        Console.WriteLine("Ingrese un número válido");
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
